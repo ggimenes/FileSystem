@@ -6,6 +6,7 @@
     <Description>File provider for physical files for Microsoft.Extensions.FileProviders.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Version>2.1.3-rtm-t000</Version>
   </PropertyGroup>
 
   <ItemGroup>

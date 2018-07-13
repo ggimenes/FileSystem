@@ -1,12 +1,12 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
-using System.IO;
 using Microsoft.Extensions.FileProviders.Internal;
 using Microsoft.Extensions.FileProviders.Physical;
 using Microsoft.Extensions.FileProviders.Physical.Internal;
 using Microsoft.Extensions.Primitives;
+using System;
+using System.IO;
 
 namespace Microsoft.Extensions.FileProviders
 {
@@ -70,12 +70,13 @@ namespace Microsoft.Extensions.FileProviders
 
         private static PhysicalFilesWatcher CreateFileWatcher(string root, ExclusionFilters filters)
         {
-            var environmentValue = Environment.GetEnvironmentVariable(PollingEnvironmentKey);
-            var pollForChanges = string.Equals(environmentValue, "1", StringComparison.Ordinal) ||
-                                 string.Equals(environmentValue, "true", StringComparison.OrdinalIgnoreCase);
+            return null;
+            //var environmentValue = Environment.GetEnvironmentVariable(PollingEnvironmentKey);
+            //var pollForChanges = string.Equals(environmentValue, "1", StringComparison.Ordinal) ||
+            //                     string.Equals(environmentValue, "true", StringComparison.OrdinalIgnoreCase);
 
-            root = PathUtils.EnsureTrailingSlash(Path.GetFullPath(root));
-            return new PhysicalFilesWatcher(root, new FileSystemWatcher(root), pollForChanges, filters);
+            //root = PathUtils.EnsureTrailingSlash(Path.GetFullPath(root));
+            //return new PhysicalFilesWatcher(root, new FileSystemWatcher(root), pollForChanges, filters);
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace Microsoft.Extensions.FileProviders
         /// </summary>
         public void Dispose()
         {
-            _filesWatcher.Dispose();
+            _filesWatcher?.Dispose();
         }
 
         /// <summary>
@@ -225,7 +226,8 @@ namespace Microsoft.Extensions.FileProviders
             // Relative paths starting with leading slashes are okay
             filter = filter.TrimStart(_pathSeparators);
 
-            return _filesWatcher.CreateFileChangeToken(filter);
+            return NullChangeToken.Singleton;
+            //return _filesWatcher.CreateFileChangeToken(filter);
         }
     }
 }
